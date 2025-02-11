@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "../store/authStore";
 import API from "../api/api";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,17 @@ const Login = () => {
     const setToken = useAuthStore((state) => state.setToken);
     const navigate = useNavigate();
 
+    const checkToken = () => {
+        const token = localStorage.getItem("token");
+        navigate("/dashboard");
+        if (!token) {
+            navigate("/");
+        }
+    };
+
+    useEffect(() => {
+        checkToken();
+    }, []);
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setErrorMessage(""); // Reset pesan error sebelum mencoba login
