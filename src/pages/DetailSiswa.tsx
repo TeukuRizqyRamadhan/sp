@@ -52,7 +52,7 @@ const DetailSiswa = () => {
 
     return (
         <div className="p-6">
-            <button onClick={() => navigate(-1)} className="bg-gray-500 text-white px-4 py-2 rounded">
+            <button onClick={() => navigate(-1)} className="bg-gray-500 text-white px-4 py-2 rounded" onMouseEnter={(e) => (e.target as HTMLButtonElement).style.cursor = "pointer"}>
                 Kembali
             </button>
             <h2 className="text-2xl font-bold mt-4">Detail Surat Pembinaan</h2>
