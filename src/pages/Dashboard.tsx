@@ -15,12 +15,19 @@ type StatistikSP = {
   siswaTerbanyakSP: { nama: string; jumlahSP: number; kelas: string } | null;
 };
 
+type Leaderboard = {
+  nama: string;
+  spCount: number;
+  kelas: string;
+}
+
 const Dashboard = () => {
   const [nama, setNama] = useState("");
   const [hasil, setHasil] = useState<Siswa[]>([]);
   const [selectedSiswa, setSelectedSiswa] = useState<Siswa | null>(null);
   const [keterangan, setKeterangan] = useState("");
   const [statistik, setStatistik] = useState<StatistikSP | null>(null);
+  const [leaderboard, setLeaderboard] = useState<Leaderboard[]>([]);
   const [siswaList, setSiswaList] = useState<Siswa[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -29,6 +36,7 @@ const Dashboard = () => {
   useEffect(() => {
     checkToken();
     fetchStatistik();
+    fetchLeaderboard();
     fetchSiswa(currentPage);
   }, [currentPage]);
 
@@ -46,6 +54,16 @@ const Dashboard = () => {
     } catch (error) {
       console.error("Gagal mengambil data statistik:", error);
     }
+  };
+
+  const fetchLeaderboard = async () => {
+    try {
+      const { data } = await API.get<Leaderboard[]>("/siswa/leaderboard-sp");
+      setLeaderboard(data);
+      console.log("Leaderboard:", data);
+    } catch (error) {
+      console.error("Gagal mengambil data leaderboard:", error);
+    };
   };
 
   const fetchSiswa = async (page: number) => {
@@ -228,6 +246,33 @@ const Dashboard = () => {
           </table>
         </div>
       )}
+
+      {leaderboard?.length > 0 ? (
+        <div className="mb-6">
+          <h3 className="text-xl font-bold">Top 5 Surat Pembinaan</h3>
+          <table className="w-full border-collapse border border-gray-300 mt-2">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="border border-gray-300 p-2">No</th>
+                <th className="border border-gray-300 p-2">Nama Siswa</th>
+                <th className="border border-gray-300 p-2">Jumlah SP</th>
+              </tr>
+            </thead>
+            <tbody>
+              {leaderboard.map((item, index) => (
+                <tr key={item?.nama || index} className="text-center">
+                  <td className="border border-gray-300 p-2">{index + 1}</td>
+                  <td className="border border-gray-300 p-2">{item?.nama ?? "Tidak ada data"} - {item?.kelas ?? "Tidak ada data"}</td>
+                  <td className="border border-gray-300 p-2">{item?.spCount ?? 0}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="text-gray-500 mt-4">Belum ada data leaderboard SP.</p>
+      )}
+
 
       <h3 className="text-xl font-bold">Cari Siswa</h3>
       <input
