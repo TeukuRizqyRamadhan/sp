@@ -212,7 +212,7 @@ const Dashboard = () => {
 
       {selectedSiswa && (
         <div className="mt-4">
-          <h3 className="text-lg font-bold">Buat Surat Pembinaan</h3>
+          <h3 className="text-lg font-bold">Buat Surat Pembinaan : {selectedSiswa.nama} - {selectedSiswa.kelas} </h3>
           <input
             type="text"
             className="border p-2 w-full"
