@@ -73,6 +73,7 @@ const UploadSiswa = () => {
         <button
           onClick={() => navigate(-1)}
           className="flex items-center gap-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+          onMouseEnter={(e) => (e.target as HTMLButtonElement).style.cursor = "pointer"}
         >
           <ArrowLeft size={18} /> Kembali
         </button>
@@ -133,9 +134,8 @@ const UploadSiswa = () => {
           <button
             onClick={handleUpload}
             disabled={loading}
-            className={`${
-              loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
-            } text-white px-6 py-2 rounded mt-4 block w-full text-center flex justify-center items-center gap-2`}
+            className={`${loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
+              } text-white px-6 py-2 rounded mt-4 block w-full text-center flex justify-center items-center gap-2`}
           >
             {loading && <Loader2 size={18} className="animate-spin" />} Upload
             ke Database
