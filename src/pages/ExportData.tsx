@@ -1,5 +1,19 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 const ExportData = () => {
 
+    const navigate = useNavigate();
+    const checkToken = () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/");
+        }
+    };
+
+    useEffect(() => {
+        checkToken();
+    }, []);
     return (
         <div className="p-4 border rounded">
             <h2 className="text-xl font-bold">Export Data Surat Pembinaan</h2>

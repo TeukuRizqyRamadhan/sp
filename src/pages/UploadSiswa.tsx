@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import API from "../api/api";
 import { UploadCloud, FileText, ArrowLeft, Loader2 } from "lucide-react";
+import { useEffect } from "react";
 
 type Siswa = {
   nama: string;
@@ -15,6 +16,17 @@ const UploadSiswa = () => {
   const [fileName, setFileName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const checkToken = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    checkToken();
+  }, []);
 
   // Handle file upload melalui dropzone
   const onDrop = (acceptedFiles: File[]) => {

@@ -1,6 +1,20 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Panduan = () => {
+
+    const navigate = useNavigate();
+    const checkToken = () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/");
+        }
+    };
+
+    useEffect(() => {
+        checkToken();
+    }, []);
     return (
         <div className="p-6 max-w-4xl mx-auto">
             <h1 className="text-3xl font-bold mb-4">Panduan Menggunakan Website SP</h1>
