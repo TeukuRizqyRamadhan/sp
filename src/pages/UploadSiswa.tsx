@@ -5,7 +5,6 @@ import { useDropzone } from "react-dropzone";
 import API from "../api/api";
 import { UploadCloud, FileText, ArrowLeft, Loader2 } from "lucide-react";
 
-// Type untuk data siswa
 type Siswa = {
   nama: string;
   kelas: string;

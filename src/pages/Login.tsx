@@ -24,35 +24,31 @@ const Login = () => {
     }, []);
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        setErrorMessage(""); // Reset pesan error sebelum mencoba login
+        setErrorMessage(""); // Reset pesan error 
 
         try {
             const response = await API.post("/auth/login", { email, password });
             const { token } = response.data;
 
-            // Simpan token ke localStorage agar tetap login saat refresh
             localStorage.setItem("token", token);
             setToken(token);
 
-            // Notifikasi sukses
             Swal.fire({
                 title: "Login Berhasil!",
                 text: "Selamat datang di dashboard",
                 icon: "success",
-                timer: 2000, // Otomatis tertutup setelah 2 detik
+                timer: 2000,
                 showConfirmButton: false,
             }).then(() => {
-                navigate("/dashboard"); // Pindah ke dashboard setelah notifikasi ditutup
+                navigate("/dashboard");
             });
 
         } catch (error) {
-            // Notifikasi gagal
             Swal.fire({
                 title: "Login Gagal!",
                 text: "Periksa kembali email dan password Anda.",
                 icon: "error",
             });
-            // setErrorMessage("Login gagal karena salah password atau username");
         }
     };
 

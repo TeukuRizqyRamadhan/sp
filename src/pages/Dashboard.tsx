@@ -70,7 +70,7 @@ const Dashboard = () => {
   const fetchSiswa = async (page: number) => {
     try {
       const { data } = await API.get(`/siswa?page=${page}&limit=10`);
-      console.log("Data Siswa:", data); // Debugging
+      console.log("Data Siswa:", data);
       setSiswaList(data.siswa);
       setTotalPages(data.totalPages);
     } catch (error) {
@@ -114,7 +114,7 @@ const Dashboard = () => {
       });
       return;
     }
-    buatSP(); // Jika valid, jalankan fungsi buatSP
+    buatSP();
   };
 
   const buatSP = async () => {
@@ -161,10 +161,10 @@ const Dashboard = () => {
           title: "Berhasil!",
           text: "Surat Pembinaan berhasil dibuat.",
           icon: "success",
-          timer: 2000, // Notifikasi otomatis tertutup setelah 2 detik
+          timer: 2000,
           showConfirmButton: false,
         }).then(() => {
-          window.location.reload(); // Refresh halaman setelah SP berhasil dibuat
+          window.location.reload();
         });
       }
     } catch (error) {
@@ -201,10 +201,10 @@ const Dashboard = () => {
           title: "Logout Berhasil!",
           text: "Anda telah keluar.",
           icon: "success",
-          timer: 2000, // Otomatis tertutup setelah 2 detik
+          timer: 2000,
           showConfirmButton: false,
         }).then(() => {
-          navigate("/"); // Arahkan ke halaman login setelah notifikasi sukses
+          navigate("/");
         });
       }
     });

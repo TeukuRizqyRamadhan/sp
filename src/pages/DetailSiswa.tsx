@@ -17,8 +17,8 @@ const formatTanggal = (tanggal: string) => {
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
-    hour12: false, // Gunakan format 24 jam
-    timeZone: "Asia/Jakarta", // Pastikan sesuai zona waktu
+    hour12: false,
+    timeZone: "Asia/Jakarta",
   });
 };
 
@@ -42,7 +42,7 @@ const DetailSiswa = () => {
   const checkToken = () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/"); // Redirect ke halaman login jika tidak ada token
+      navigate("/");
     }
   };
 
@@ -76,7 +76,6 @@ const DetailSiswa = () => {
           <tbody>
             {spList.map((sp) => (
               <tr key={sp.id}>
-                {/* buat tanggal format seperti 02 - desember - 2023 */}
                 <td className="border border-gray-300 p-2">
                   {formatTanggal(sp.tanggal)}
                 </td>
