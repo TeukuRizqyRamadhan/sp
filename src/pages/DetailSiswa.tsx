@@ -23,7 +23,7 @@ const formatTanggal = (tanggal: string) => {
 };
 
 const DetailSiswa = () => {
-  const { id, nama } = useParams<{ id: string; nama: string }>();
+  const { id, nama, kelas } = useParams<{ id: string; nama: string; kelas: string }>();
   const [spList, setSpList] = useState<SP[]>([]);
   const navigate = useNavigate();
 
@@ -63,6 +63,7 @@ const DetailSiswa = () => {
       </button>
       <h2 className="text-2xl font-bold mt-4">Detail Surat Pembinaan</h2>
       <p className="text-lg">Nama: {nama}</p>
+      <p className="text-lg">Kelas: {kelas}</p>
 
       {spList.length > 0 ? (
         <table className="w-full border-collapse border border-gray-300 mt-4">
@@ -90,6 +91,26 @@ const DetailSiswa = () => {
       ) : (
         <p className="mt-4 text-gray-500">Belum ada Surat Pembinaan.</p>
       )}
+
+      <h2 className="text-2xl font-bold mt-4">Absensi Fingerprint (dummy)</h2>
+      <table className="w-full border-collapse border border-gray-300 mt-4">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="border border-gray-300 p-2">Waktu</th>
+            <th className="border border-gray-300 p-2">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="border border-gray-300 p-2">Rabu, 12 Februari 2025</td>
+            <td className="border border-gray-300 p-2 bg-green-500 text-white">Sudah Scan</td>
+          </tr>
+          <tr>
+            <td className="border border-gray-300 p-2">Kamis, 13 Februari 2025</td>
+            <td className="border border-gray-300 p-2 bg-red-500 text-white">Belum Scan</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };

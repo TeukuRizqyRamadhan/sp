@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route
-          path="/dashboard/detail-siswa/:id/:nama"
+          path="/dashboard/detail-siswa/:id/:nama/:kelas"
           element={<DetailSiswa />}
         />
         <Route path="dashboard/upload-siswa" element={<UploadSiswa />} />

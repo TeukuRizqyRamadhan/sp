@@ -180,7 +180,7 @@ const Dashboard = () => {
 
   const cekSP = () => {
     if (!selectedSiswa) return;
-    navigate(`detail-siswa/${selectedSiswa.id}/${selectedSiswa.nama}`);
+    navigate(`detail-siswa/${selectedSiswa.id}/${selectedSiswa.nama}/${selectedSiswa.kelas}`);
   };
 
   const logout = () => {
