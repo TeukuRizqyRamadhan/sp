@@ -104,6 +104,16 @@ const Dashboard = () => {
       });
       return;
     }
+
+    if (!jenisPelanggaran) {
+      Swal.fire({
+        title: "Peringatan!",
+        text: "Silakan pilih jenis pelanggaran.",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
     buatSP(); // Jika valid, jalankan fungsi buatSP
   };
 
@@ -295,6 +305,9 @@ const Dashboard = () => {
         <button className="bg-blue-500 text-white px-4 py-2 mt-2">
           <Link to="panduan">Panduan Website</Link>
         </button>
+        <button className="bg-red-500 text-white px-4 py-2 mt-2">
+          <Link to="export-data">Export Data</Link>
+        </button>
       </div>
 
       {hasil.length > 0 && (
@@ -304,11 +317,10 @@ const Dashboard = () => {
             {hasil.map((siswa) => (
               <li key={siswa.id}>
                 <div
-                  className={`border p-3 rounded-lg cursor-pointer transition-all ${
-                    selectedSiswa?.id === siswa.id
-                      ? "bg-blue-200 text-blue-800"
-                      : "hover:bg-blue-100"
-                  }`}
+                  className={`border p-3 rounded-lg cursor-pointer transition-all ${selectedSiswa?.id === siswa.id
+                    ? "bg-blue-200 text-blue-800"
+                    : "hover:bg-blue-100"
+                    }`}
                   onClick={() =>
                     setSelectedSiswa(
                       selectedSiswa?.id === siswa.id ? null : siswa
@@ -362,8 +374,8 @@ const Dashboard = () => {
                       className="bg-red-500 text-white p-2 mt-2 w-full"
                       onClick={handleBuatSP}
                       onMouseEnter={(e) =>
-                        ((e.target as HTMLButtonElement).style.cursor =
-                          "pointer")
+                      ((e.target as HTMLButtonElement).style.cursor =
+                        "pointer")
                       }
                     >
                       Buat SP
@@ -372,8 +384,8 @@ const Dashboard = () => {
                       className="bg-gray-500 text-white p-2 mt-2 w-full"
                       onClick={cekSP}
                       onMouseEnter={(e) =>
-                        ((e.target as HTMLButtonElement).style.cursor =
-                          "pointer")
+                      ((e.target as HTMLButtonElement).style.cursor =
+                        "pointer")
                       }
                     >
                       Cek Jumlah SP
@@ -391,11 +403,10 @@ const Dashboard = () => {
         {siswaList.map((siswa) => (
           <li key={siswa.id}>
             <div
-              className={`border p-3 rounded-lg cursor-pointer transition-all ${
-                selectedSiswa?.id === siswa.id
-                  ? "bg-blue-200 text-blue-800"
-                  : "hover:bg-gray-100"
-              }`}
+              className={`border p-3 rounded-lg cursor-pointer transition-all ${selectedSiswa?.id === siswa.id
+                ? "bg-blue-200 text-blue-800"
+                : "hover:bg-gray-100"
+                }`}
               onClick={() =>
                 setSelectedSiswa(selectedSiswa?.id === siswa.id ? null : siswa)
               }
