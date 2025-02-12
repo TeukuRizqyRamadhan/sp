@@ -19,7 +19,7 @@ type Leaderboard = {
   nama: string;
   spCount: number;
   kelas: string;
-}
+};
 
 const Dashboard = () => {
   const [nama, setNama] = useState("");
@@ -32,6 +32,7 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
+  const [jenisPelanggaran, setJenisPelanggaran] = useState("");
 
   useEffect(() => {
     checkToken();
@@ -63,7 +64,7 @@ const Dashboard = () => {
       console.log("Leaderboard:", data);
     } catch (error) {
       console.error("Gagal mengambil data leaderboard:", error);
-    };
+    }
   };
 
   const fetchSiswa = async (page: number) => {
@@ -106,8 +107,6 @@ const Dashboard = () => {
     buatSP(); // Jika valid, jalankan fungsi buatSP
   };
 
-
-
   const buatSP = async () => {
     if (!selectedSiswa) {
       Swal.fire({
@@ -144,6 +143,7 @@ const Dashboard = () => {
       if (result.isConfirmed) {
         await API.post("/siswa/sp", {
           siswaId: selectedSiswa.id,
+          jenisPelanggaran,
           keterangan,
         });
 
@@ -207,7 +207,9 @@ const Dashboard = () => {
         <button
           className="bg-gray-700 text-white px-4 py-2 rounded"
           onClick={logout}
-          onMouseEnter={(e) => (e.target as HTMLButtonElement).style.cursor = "pointer"}
+          onMouseEnter={(e) =>
+            ((e.target as HTMLButtonElement).style.cursor = "pointer")
+          }
         >
           Logout
         </button>
@@ -262,8 +264,13 @@ const Dashboard = () => {
               {leaderboard.map((item, index) => (
                 <tr key={item?.nama || index} className="text-center">
                   <td className="border border-gray-300 p-2">{index + 1}</td>
-                  <td className="border border-gray-300 p-2">{item?.nama ?? "Tidak ada data"} - {item?.kelas ?? "Tidak ada data"}</td>
-                  <td className="border border-gray-300 p-2">{item?.spCount ?? 0}</td>
+                  <td className="border border-gray-300 p-2">
+                    {item?.nama ?? "Tidak ada data"} -{" "}
+                    {item?.kelas ?? "Tidak ada data"}
+                  </td>
+                  <td className="border border-gray-300 p-2">
+                    {item?.spCount ?? 0}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -273,7 +280,6 @@ const Dashboard = () => {
         <p className="text-gray-500 mt-4">Belum ada data leaderboard SP.</p>
       )}
 
-
       <h3 className="text-xl font-bold">Cari Siswa</h3>
       <input
         type="text"
@@ -282,7 +288,7 @@ const Dashboard = () => {
         value={nama}
         onChange={(e) => cariSiswa(e.target.value)}
       />
-      <div className="flex space-x-2" >
+      <div className="flex space-x-2">
         <button className="bg-green-500 text-white px-4 py-2 mt-2">
           <Link to="upload-siswa">Tambah Siswa</Link>
         </button>
@@ -298,9 +304,16 @@ const Dashboard = () => {
             {hasil.map((siswa) => (
               <li key={siswa.id}>
                 <div
-                  className={`border p-3 rounded-lg cursor-pointer transition-all ${selectedSiswa?.id === siswa.id ? "bg-blue-200 text-blue-800" : "hover:bg-blue-100"
-                    }`}
-                  onClick={() => setSelectedSiswa(selectedSiswa?.id === siswa.id ? null : siswa)}
+                  className={`border p-3 rounded-lg cursor-pointer transition-all ${
+                    selectedSiswa?.id === siswa.id
+                      ? "bg-blue-200 text-blue-800"
+                      : "hover:bg-blue-100"
+                  }`}
+                  onClick={() =>
+                    setSelectedSiswa(
+                      selectedSiswa?.id === siswa.id ? null : siswa
+                    )
+                  }
                 >
                   <span className="text-gray-800 font-semibold">
                     {siswa.nama} - {siswa.kelas}
@@ -312,6 +325,32 @@ const Dashboard = () => {
                     <h3 className="text-lg font-bold">
                       Buat Surat Pembinaan: {siswa.nama} - {siswa.kelas}
                     </h3>
+                    <form>
+                      <label>Jenis Pelanggaran:</label>
+                      <br />
+                      <input
+                        type="radio"
+                        id="keterlambatan"
+                        name="jenisPelanggaran"
+                        value="Keterlambatan"
+                        onChange={(e) => setJenisPelanggaran(e.target.value)}
+                      />
+                      <label htmlFor="keterlambatan">Keterlambatan</label>
+                      <br />
+
+                      <input
+                        type="radio"
+                        id="budayahumanis"
+                        name="jenisPelanggaran"
+                        value="Budaya Humanis"
+                        onChange={(e) => setJenisPelanggaran(e.target.value)}
+                      />
+                      <label htmlFor="Budaya Humanis">Budaya Humanis</label>
+                      <br />
+
+                      <p>Jenis Pelanggaran yang dipilih: {jenisPelanggaran}</p>
+                    </form>
+
                     <input
                       type="text"
                       className="border p-2 w-full mt-2"
@@ -322,14 +361,20 @@ const Dashboard = () => {
                     <button
                       className="bg-red-500 text-white p-2 mt-2 w-full"
                       onClick={handleBuatSP}
-                      onMouseEnter={(e) => (e.target as HTMLButtonElement).style.cursor = "pointer"}
+                      onMouseEnter={(e) =>
+                        ((e.target as HTMLButtonElement).style.cursor =
+                          "pointer")
+                      }
                     >
                       Buat SP
                     </button>
                     <button
                       className="bg-gray-500 text-white p-2 mt-2 w-full"
                       onClick={cekSP}
-                      onMouseEnter={(e) => (e.target as HTMLButtonElement).style.cursor = "pointer"}
+                      onMouseEnter={(e) =>
+                        ((e.target as HTMLButtonElement).style.cursor =
+                          "pointer")
+                      }
                     >
                       Cek Jumlah SP
                     </button>
@@ -346,9 +391,14 @@ const Dashboard = () => {
         {siswaList.map((siswa) => (
           <li key={siswa.id}>
             <div
-              className={`border p-3 rounded-lg cursor-pointer transition-all ${selectedSiswa?.id === siswa.id ? "bg-blue-200 text-blue-800" : "hover:bg-gray-100"
-                }`}
-              onClick={() => setSelectedSiswa(selectedSiswa?.id === siswa.id ? null : siswa)}
+              className={`border p-3 rounded-lg cursor-pointer transition-all ${
+                selectedSiswa?.id === siswa.id
+                  ? "bg-blue-200 text-blue-800"
+                  : "hover:bg-gray-100"
+              }`}
+              onClick={() =>
+                setSelectedSiswa(selectedSiswa?.id === siswa.id ? null : siswa)
+              }
             >
               {siswa.nama} - {siswa.kelas}
             </div>
@@ -358,6 +408,31 @@ const Dashboard = () => {
                 <h3 className="text-lg font-bold">
                   Buat Surat Pembinaan: {siswa.nama} - {siswa.kelas}
                 </h3>
+                <form>
+                  <label>Jenis Pelanggaran:</label>
+                  <br />
+                  <input
+                    type="radio"
+                    id="keterlambatan"
+                    name="jenisPelanggaran"
+                    value="Keterlambatan"
+                    onChange={(e) => setJenisPelanggaran(e.target.value)}
+                  />
+                  <label htmlFor="keterlambatan">Keterlambatan</label>
+                  <br />
+
+                  <input
+                    type="radio"
+                    id="budayahumanis"
+                    name="jenisPelanggaran"
+                    value="Budaya Humanis"
+                    onChange={(e) => setJenisPelanggaran(e.target.value)}
+                  />
+                  <label htmlFor="Budaya Humanis">Budaya Humanis</label>
+                  <br />
+
+                  <p>Jenis Pelanggaran yang dipilih: {jenisPelanggaran}</p>
+                </form>
                 <input
                   type="text"
                   className="border p-2 w-full mt-2"
@@ -368,14 +443,18 @@ const Dashboard = () => {
                 <button
                   className="bg-red-500 text-white p-2 mt-2 w-full"
                   onClick={handleBuatSP}
-                  onMouseEnter={(e) => (e.target as HTMLButtonElement).style.cursor = "pointer"}
+                  onMouseEnter={(e) =>
+                    ((e.target as HTMLButtonElement).style.cursor = "pointer")
+                  }
                 >
                   Buat SP
                 </button>
                 <button
                   className="bg-gray-500 text-white p-2 mt-2 w-full"
                   onClick={cekSP}
-                  onMouseEnter={(e) => (e.target as HTMLButtonElement).style.cursor = "pointer"}
+                  onMouseEnter={(e) =>
+                    ((e.target as HTMLButtonElement).style.cursor = "pointer")
+                  }
                 >
                   Cek Jumlah SP
                 </button>
@@ -389,7 +468,9 @@ const Dashboard = () => {
         <button
           disabled={currentPage === 1}
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          onMouseEnter={(e) => (e.target as HTMLButtonElement).style.cursor = "pointer"}
+          onMouseEnter={(e) =>
+            ((e.target as HTMLButtonElement).style.cursor = "pointer")
+          }
           className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
         >
           Previous
@@ -403,36 +484,13 @@ const Dashboard = () => {
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }
           className="bg-gray-500 text-white px-4 py-2 rounded disabled:opacity-50"
-          onMouseEnter={(e) => (e.target as HTMLButtonElement).style.cursor = "pointer"}
+          onMouseEnter={(e) =>
+            ((e.target as HTMLButtonElement).style.cursor = "pointer")
+          }
         >
           Next
         </button>
       </div>
-
-      {/* {selectedSiswa && (
-        <div className="mt-4">
-          <h3 className="text-lg font-bold">Buat Surat Pembinaan : {selectedSiswa.nama} - {selectedSiswa.kelas} </h3>
-          <input
-            type="text"
-            className="border p-2 w-full"
-            placeholder="Keterangan..."
-            value={keterangan}
-            onChange={(e) => setKeterangan(e.target.value)}
-          />
-          <button
-            className="bg-red-500 text-white p-2 mt-2 w-full"
-            onClick={buatSP}
-          >
-            Buat SP
-          </button>
-          <button
-            className="bg-gray-500 text-white p-2 mt-2 w-full"
-            onClick={cekSP}
-          >
-            Cek Jumlah SP
-          </button>
-        </div>
-      )} */}
     </div>
   );
 };
