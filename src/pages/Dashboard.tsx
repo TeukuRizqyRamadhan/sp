@@ -180,7 +180,9 @@ const Dashboard = () => {
 
   const cekSP = () => {
     if (!selectedSiswa) return;
-    navigate(`detail-siswa/${selectedSiswa.id}/${selectedSiswa.nama}/${selectedSiswa.kelas}`);
+    navigate(
+      `detail-siswa/${selectedSiswa.id}/${selectedSiswa.nama}/${selectedSiswa.kelas}`
+    );
   };
 
   const logout = () => {
@@ -317,10 +319,11 @@ const Dashboard = () => {
             {hasil.map((siswa) => (
               <li key={siswa.id}>
                 <div
-                  className={`border p-3 rounded-lg cursor-pointer transition-all ${selectedSiswa?.id === siswa.id
-                    ? "bg-blue-200 text-blue-800"
-                    : "hover:bg-blue-100"
-                    }`}
+                  className={`border p-3 rounded-lg cursor-pointer transition-all ${
+                    selectedSiswa?.id === siswa.id
+                      ? "bg-blue-200 text-blue-800"
+                      : "hover:bg-blue-100"
+                  }`}
                   onClick={() =>
                     setSelectedSiswa(
                       selectedSiswa?.id === siswa.id ? null : siswa
@@ -352,12 +355,22 @@ const Dashboard = () => {
 
                       <input
                         type="radio"
-                        id="budayahumanis"
+                        id="ketertiban"
                         name="jenisPelanggaran"
-                        value="Budaya Humanis"
+                        value="Ketertiban"
                         onChange={(e) => setJenisPelanggaran(e.target.value)}
                       />
-                      <label htmlFor="Budaya Humanis">Budaya Humanis</label>
+                      <label htmlFor="Ketertiban">Ketertiban</label>
+                      <br />
+
+                      <input
+                        type="radio"
+                        id="penampilan"
+                        name="jenisPelanggaran"
+                        value="penampilan"
+                        onChange={(e) => setJenisPelanggaran(e.target.value)}
+                      />
+                      <label htmlFor="Penampilan">Penampilan</label>
                       <br />
 
                       <p>Jenis Pelanggaran yang dipilih: {jenisPelanggaran}</p>
@@ -374,8 +387,8 @@ const Dashboard = () => {
                       className="bg-red-500 text-white p-2 mt-2 w-full"
                       onClick={handleBuatSP}
                       onMouseEnter={(e) =>
-                      ((e.target as HTMLButtonElement).style.cursor =
-                        "pointer")
+                        ((e.target as HTMLButtonElement).style.cursor =
+                          "pointer")
                       }
                     >
                       Buat SP
@@ -384,8 +397,8 @@ const Dashboard = () => {
                       className="bg-gray-500 text-white p-2 mt-2 w-full"
                       onClick={cekSP}
                       onMouseEnter={(e) =>
-                      ((e.target as HTMLButtonElement).style.cursor =
-                        "pointer")
+                        ((e.target as HTMLButtonElement).style.cursor =
+                          "pointer")
                       }
                     >
                       Cek Jumlah SP
@@ -403,10 +416,11 @@ const Dashboard = () => {
         {siswaList.map((siswa) => (
           <li key={siswa.id}>
             <div
-              className={`border p-3 rounded-lg cursor-pointer transition-all ${selectedSiswa?.id === siswa.id
-                ? "bg-blue-200 text-blue-800"
-                : "hover:bg-gray-100"
-                }`}
+              className={`border p-3 rounded-lg cursor-pointer transition-all ${
+                selectedSiswa?.id === siswa.id
+                  ? "bg-blue-200 text-blue-800"
+                  : "hover:bg-gray-100"
+              }`}
               onClick={() =>
                 setSelectedSiswa(selectedSiswa?.id === siswa.id ? null : siswa)
               }
@@ -434,12 +448,22 @@ const Dashboard = () => {
 
                   <input
                     type="radio"
-                    id="budayahumanis"
+                    id="ketertiban"
                     name="jenisPelanggaran"
-                    value="Budaya Humanis"
+                    value="Ketertiban"
                     onChange={(e) => setJenisPelanggaran(e.target.value)}
                   />
-                  <label htmlFor="Budaya Humanis">Budaya Humanis</label>
+                  <label htmlFor="Ketertiban">Ketertiban</label>
+                  <br />
+
+                  <input
+                    type="radio"
+                    id="penampilan"
+                    name="jenisPelanggaran"
+                    value="penampilan"
+                    onChange={(e) => setJenisPelanggaran(e.target.value)}
+                  />
+                  <label htmlFor="Penampilan">Penampilan</label>
                   <br />
 
                   <p>Jenis Pelanggaran yang dipilih: {jenisPelanggaran}</p>
