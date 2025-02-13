@@ -367,7 +367,7 @@ const Dashboard = () => {
                         type="radio"
                         id="penampilan"
                         name="jenisPelanggaran"
-                        value="penampilan"
+                        value="Penampilan"
                         onChange={(e) => setJenisPelanggaran(e.target.value)}
                       />
                       <label htmlFor="Penampilan">Penampilan</label>
@@ -460,7 +460,7 @@ const Dashboard = () => {
                     type="radio"
                     id="penampilan"
                     name="jenisPelanggaran"
-                    value="penampilan"
+                    value="Penampilan"
                     onChange={(e) => setJenisPelanggaran(e.target.value)}
                   />
                   <label htmlFor="Penampilan">Penampilan</label>
