@@ -23,7 +23,11 @@ const formatTanggal = (tanggal: string) => {
 };
 
 const DetailSiswa = () => {
-  const { id, nama, kelas } = useParams<{ id: string; nama: string; kelas: string }>();
+  const { id, nama, kelas } = useParams<{
+    id: string;
+    nama: string;
+    kelas: string;
+  }>();
   const [spList, setSpList] = useState<SP[]>([]);
   const navigate = useNavigate();
 
@@ -93,7 +97,8 @@ const DetailSiswa = () => {
       )}
 
       <h2 className="text-2xl font-bold mt-4">Absensi Fingerprint (dummy)</h2>
-      <table className="w-full border-collapse border border-gray-300 mt-4">
+      <p className="text-lg">Fitur belum tersedia</p>
+      {/* <table className="w-full border-collapse border border-gray-300 mt-4">
         <thead>
           <tr className="bg-gray-200">
             <th className="border border-gray-300 p-2">Waktu</th>
@@ -110,7 +115,7 @@ const DetailSiswa = () => {
             <td className="border border-gray-300 p-2 bg-red-500 text-white">Belum Scan</td>
           </tr>
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 };
