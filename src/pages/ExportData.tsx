@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import API from "../api/api";
 
 const ExportData = ({ onClose }: { onClose: () => void }) => {
