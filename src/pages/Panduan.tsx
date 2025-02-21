@@ -41,7 +41,7 @@ const Panduan = () => {
             <img src="/src/assets/2.png" alt="Buat SP dan Cek SP" className="max-w-full" />
 
             <h2 className="text-2xl font-semibold mt-4">4. Membuat SP</h2>
-            <p className="text-gray-600">Masukkan keterangan pada kolom yang disediakan dan klik "Buat SP" maka akan muncul validasi lalu tekan OK untuk membuat SP</p>
+            <p className="text-gray-600">Pilih jenis pelanggaran dan masukkan keterangan pada kolom yang disediakan dan klik "Buat SP" maka akan muncul validasi lalu tekan OK untuk membuat SP</p>
             <img src="/src/assets/3.png" alt="Buat SP dan Cek SP" className="max-w-full" />
             <img src="/src/assets/4.png" alt="Buat SP dan Cek SP" className="max-w-full" />
 
@@ -49,9 +49,15 @@ const Panduan = () => {
             <p className="text-gray-600">Klik cek SP untuk cek SP siswa tersebut, setelah itu akan muncul halaman detail siswa tersebut pernah berapa kali mendapat SP lengkap dengan tanggal dan hari serta keterangan</p>
             <img src="/src/assets/5.png" alt="Buat SP dan Cek SP" className="max-w-full" />
 
-            <Link to="/" className="mt-6 inline-block px-4 py-2 bg-blue-500 text-white rounded-lg">
-                Kembali ke Beranda
-            </Link>
+            <h2 className="text-2xl font-semibold mt-4">6.Export Data</h2>
+            <p className="text-gray-600">Klik Export Data pada halaman utama untuk mengunduh data SP</p>
+            <img src="/src/assets/6.png" alt="Buat SP dan Cek SP" className="max-w-full" />
+            <p className="text-gray-600">Pilih rentang tanggal pada halaman utama untuk mengunduh data SP, per hari, per bulan, atau per tahun</p>
+            <img src="/src/assets/7.png" alt="Buat SP dan Cek SP" className="max-w-full" />
+            <p className="text-gray-600">Data berhasil diunduh, silahkan cek di folder download</p>
+            <img src="/src/assets/8.png" alt="Buat SP dan Cek SP" className="max-w-full" />
+
+
         </div>
     );
 };
