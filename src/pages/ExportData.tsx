@@ -1,5 +1,7 @@
 import { useState } from "react";
 import API from "../api/api";
+import swal from "sweetalert2";
+import Swal from "sweetalert2";
 
 const ExportData = ({ onClose }: { onClose: () => void }) => {
   const [filter, setFilter] = useState("hari");
@@ -23,11 +25,15 @@ const ExportData = ({ onClose }: { onClose: () => void }) => {
       link.click();
       link.parentNode?.removeChild(link);
 
-      alert("Data berhasil diekspor!");
+      // Menampilkan SweetAlert sukses
+      Swal.fire("Sukses!", "Data berhasil diekspor!", "success");
+
       onClose(); // Tutup modal setelah ekspor berhasil
     } catch (error) {
       console.error("Error exporting data:", error);
-      alert("Gagal mengekspor data.");
+
+      // Menampilkan SweetAlert gagal
+      Swal.fire("Gagal!", "Terjadi kesalahan saat mengekspor data.", "error");
     }
   };
 
@@ -97,11 +103,11 @@ const ExportData = ({ onClose }: { onClose: () => void }) => {
         </button>
         <button
           onClick={handleExport}
+          className="bg-blue-500 text-white px-4 py-2 ml-2 rounded hover:bg-blue-600 transition"
           onMouseEnter={(e) =>
           ((e.target as HTMLButtonElement).style.cursor =
             "pointer")
           }
-          className="bg-blue-500 text-white px-4 py-2 ml-2 rounded hover:bg-blue-600 transition"
         >
           Export Data
         </button>
