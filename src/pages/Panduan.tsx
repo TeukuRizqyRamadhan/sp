@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { ArrowLeft } from "lucide-react";
 
 const Panduan = () => {
 
@@ -17,7 +18,16 @@ const Panduan = () => {
     }, []);
     return (
         <div className="p-6 max-w-4xl mx-auto">
-            <h1 className="text-3xl font-bold mb-4">Panduan Menggunakan Website SP</h1>
+            <div className="flex items-center justify-between">
+                <h1 className="text-3xl font-bold">Panduan Menggunakan Website SP</h1>
+                <button
+                    onClick={() => navigate(-1)}
+                    className="flex items-center gap-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                    onMouseEnter={(e) => (e.target as HTMLButtonElement).style.cursor = "pointer"}
+                >
+                    <ArrowLeft size={18} /> Kembali
+                </button>
+            </div>
 
             <h2 className="text-2xl font-semibold mt-4">1. Login</h2>
             <p className="text-gray-600">Silahkan login menggunakan username dan password yang sudah diberikan kepada guru piket</p>
