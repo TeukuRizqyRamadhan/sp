@@ -1,6 +1,5 @@
 import { useState } from "react";
 import API from "../api/api";
-import swal from "sweetalert2";
 import Swal from "sweetalert2";
 
 const ExportData = ({ onClose }: { onClose: () => void }) => {
