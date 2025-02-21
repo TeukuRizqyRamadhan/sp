@@ -63,7 +63,6 @@ const Dashboard = () => {
     try {
       const { data } = await API.get<Leaderboard[]>("/siswa/leaderboard-sp");
       setLeaderboard(data);
-      console.log("Leaderboard:", data);
     } catch (error) {
       console.error("Gagal mengambil data leaderboard:", error);
     }
@@ -72,7 +71,6 @@ const Dashboard = () => {
   const fetchSiswa = async (page: number) => {
     try {
       const { data } = await API.get(`/siswa?page=${page}&limit=10`);
-      console.log("Data Siswa:", data);
       setSiswaList(data.siswa);
       setTotalPages(data.totalPages);
     } catch (error) {

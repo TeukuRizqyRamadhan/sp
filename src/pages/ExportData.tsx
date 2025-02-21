@@ -36,6 +36,32 @@ const ExportData = ({ onClose }: { onClose: () => void }) => {
     }
   };
 
+  const handleExportExcel = async () => {
+    try {
+      const response = await API.get(`/siswa/export-excel`, {
+        params: { filter, date },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `data-${filter}-${date}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode?.removeChild(link);
+
+      Swal.fire("Sukses!", "Data berhasil diekspor ke Excel!", "success");
+      onClose(); // Tutup modal setelah ekspor berhasil
+    } catch (error) {
+      console.error("Error exporting data to Excel:", error);
+      Swal.fire("Gagal!", "Terjadi kesalahan saat mengekspor data ke Excel.", "error");
+    }
+  };
+
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
     return Array.from({ length: currentYear - 1999 }, (_, i) => currentYear - i);
@@ -108,7 +134,17 @@ const ExportData = ({ onClose }: { onClose: () => void }) => {
             "pointer")
           }
         >
-          Export Data
+          Export CSV
+        </button>
+        <button
+          onClick={handleExportExcel}
+          className="bg-green-500 text-white px-4 py-2 ml-2 rounded hover:bg-green-600 transition"
+          onMouseEnter={(e) =>
+          ((e.target as HTMLButtonElement).style.cursor =
+            "pointer")
+          }
+        >
+          Export Excel
         </button>
       </div>
     </div>
