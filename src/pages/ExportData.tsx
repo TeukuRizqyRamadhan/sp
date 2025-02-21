@@ -6,7 +6,25 @@ const ExportData = ({ onClose }: { onClose: () => void }) => {
   const [filter, setFilter] = useState("hari");
   const [date, setDate] = useState("");
 
+  const validateDate = () => {
+    if (filter === "hari" && !date) {
+      Swal.fire("Peringatan!", "Silakan pilih tanggal sebelum mengekspor.", "warning");
+      return false;
+    }
+    if (filter === "bulan" && !date) {
+      Swal.fire("Peringatan!", "Silakan pilih bulan sebelum mengekspor.", "warning");
+      return false;
+    }
+    if (filter === "tahun" && !date) {
+      Swal.fire("Peringatan!", "Silakan pilih tahun sebelum mengekspor.", "warning");
+      return false;
+    }
+    return true;
+  };
+
   const handleExport = async () => {
+    if (!validateDate()) return; // Validasi sebelum melanjutkan
+
     try {
       const response = await API.get(`/siswa/export-sp`, {
         params: { filter, date },
@@ -24,19 +42,17 @@ const ExportData = ({ onClose }: { onClose: () => void }) => {
       link.click();
       link.parentNode?.removeChild(link);
 
-      // Menampilkan SweetAlert sukses
       Swal.fire("Sukses!", "Data berhasil diekspor!", "success");
-
       onClose(); // Tutup modal setelah ekspor berhasil
     } catch (error) {
       console.error("Error exporting data:", error);
-
-      // Menampilkan SweetAlert gagal
       Swal.fire("Gagal!", "Terjadi kesalahan saat mengekspor data.", "error");
     }
   };
 
   const handleExportExcel = async () => {
+    if (!validateDate()) return; // Validasi sebelum melanjutkan
+
     try {
       const response = await API.get(`/siswa/export-excel`, {
         params: { filter, date },
